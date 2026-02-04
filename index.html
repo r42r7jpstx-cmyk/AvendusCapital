@@ -340,11 +340,23 @@ async function loadNews(){
 }
 
 function showBreaking(i){
-  const a=breakingData[i];
-  document.getElementById("breaking-img").src=a.urlToImage||"news-1.jpg";
-  document.getElementById("breaking-title").innerText=a.title;
-  document.getElementById("breaking-time").innerText=
-    new Date(a.publishedAt).toLocaleTimeString()+" · "+a.source.name;
+  const a = breakingData[i];
+
+  const img = document.getElementById("breaking-img");
+  const title = document.getElementById("breaking-title");
+  const time = document.getElementById("breaking-time");
+  const container = document.getElementById("breaking-main");
+
+  img.src = a.urlToImage || "news-1.jpg";
+  title.innerText = a.title;
+  time.innerText =
+    new Date(a.publishedAt).toLocaleTimeString() + " · " + a.source.name;
+
+  // ✅ 关键：整块 Breaking News 可点击
+  container.style.cursor = "pointer";
+  container.onclick = () => {
+    if(a.url) window.open(a.url, "_blank");
+  };
 }
 
 loadNews();
@@ -352,3 +364,4 @@ loadNews();
 
 </body>
 </html>
+
