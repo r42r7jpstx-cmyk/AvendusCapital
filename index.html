@@ -348,8 +348,9 @@ const NEWS_CONTAINER = document.getElementById("news-list");
 async function loadNews(){
   try{
     const res = await fetch(
-      `https://newsapi.org/v2/top-headlines?category=business&language=en&pageSize=3&apiKey=${NEWS_API_KEY}`
-    );
+  `https://api.allorigins.win/raw?url=https://newsapi.org/v2/top-headlines?category=business&language=en&pageSize=3&apiKey=${NEWS_API_KEY}`
+);
+
     const data = await res.json();
 
     NEWS_CONTAINER.innerHTML = "";
@@ -394,5 +395,6 @@ setInterval(loadNews, 5 * 60 * 1000);
 
 </body>
 </html>
+
 
 
