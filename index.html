@@ -236,37 +236,15 @@ footer{
   <div>
 
     <!-- Breaking News -->
-    <div class="card">
-      <h3>Breaking News</h3>
+<div class="card">
+  <h3>Breaking News</h3>
 
-      <div class="news-card">
-        <img src="news-1.jpg">
-        <div class="news-content">
-          <span>2h ago · Global Markets</span>
-          <h4>Global equities steady as investors await policy cues</h4>
-          <p>Asian markets trade mixed amid cautious global sentiment.</p>
-        </div>
-      </div>
+  <div id="news-list">
+    <div style="color:var(--muted)">Loading latest news...</div>
+  </div>
 
-      <div style="height:12px"></div>
+</div>
 
-      <div class="news-card">
-        <img src="news-2.jpg">
-        <div class="news-content">
-          <span>Business</span>
-          <h4>Banking stocks extend gains for third session</h4>
-        </div>
-      </div>
-
-      <div style="height:12px"></div>
-
-      <div class="news-card">
-        <img src="news-3.jpg">
-        <div class="news-content">
-          <span>Markets</span>
-          <h4>Midcap stocks attract selective buying interest</h4>
-        </div>
-      </div>
 
     </div>
 
@@ -364,8 +342,57 @@ function go(page){
   document.getElementById(page).classList.add('active');
   document.getElementById('nav-'+page).classList.add('active');
 }
+  const NEWS_API_KEY = "d880798baaaf456f92adf6ec24be7aac";
+const NEWS_CONTAINER = document.getElementById("news-list");
+
+async function loadNews(){
+  try{
+    const res = await fetch(
+      `https://newsapi.org/v2/top-headlines?category=business&language=en&pageSize=3&apiKey=${NEWS_API_KEY}`
+    );
+    const data = await res.json();
+
+    NEWS_CONTAINER.innerHTML = "";
+
+    data.articles.forEach(article=>{
+      const card = document.createElement("div");
+      card.className = "news-card";
+
+      card.innerHTML = `
+        <img src="${article.urlToImage || 'news-1.jpg'}">
+        <div class="news-content">
+          <span>
+            ${new Date(article.publishedAt).toLocaleTimeString()} · ${article.source.name}
+          </span>
+          <h4>${article.title}</h4>
+          <p>${article.description || ''}</p>
+        </div>
+      `;
+
+      card.onclick = ()=> window.open(article.url, "_blank");
+
+      NEWS_CONTAINER.appendChild(card);
+
+      const gap = document.createElement("div");
+      gap.style.height = "12px";
+      NEWS_CONTAINER.appendChild(gap);
+    });
+
+  }catch(err){
+    NEWS_CONTAINER.innerHTML =
+      `<div style="color:var(--muted)">Failed to load news</div>`;
+  }
+}
+
+// 页面一打开就加载
+loadNews();
+
+// 每 5 分钟自动更新
+setInterval(loadNews, 5 * 60 * 1000);
+
 </script>
 
 </body>
 </html>
+
 
