@@ -111,24 +111,7 @@ a{color:inherit;text-decoration:none;cursor:pointer}
 .positive{color:var(--green)}
 .negative{color:var(--red)}
 
-/* ===== TABS ===== */
-.tabs{display:flex;gap:10px;margin-bottom:10px}
-.tab{
-  padding:6px 12px;
-  border-radius:20px;
-  border:1px solid var(--border);
-  font-size:13px;
-}
-.tab.active{background:#1e88e5}
-
-/* ===== FOOTER ===== */
-footer{
-  text-align:center;
-  font-size:12px;
-  color:#eee;
-  padding:20px;
-}
-  /* ===== NEWS ===== */
+/* ===== NEWS ===== */
 .news-card{
   display:flex;
   gap:14px;
@@ -137,12 +120,12 @@ footer{
   overflow:hidden;
 }
 .news-card img{
-  width:140px;
-  height:100%;
+  width:120px;
+  height:80px;
   object-fit:cover;
 }
 .news-content{
-  padding:12px;
+  padding:10px;
 }
 .news-content span{
   font-size:12px;
@@ -152,12 +135,8 @@ footer{
   margin:6px 0;
   font-size:14px;
 }
-.news-content p{
-  font-size:13px;
-  color:#ccc;
-}
 
-/* ===== AI / SENTIMENT ===== */
+/* ===== OVERLAY ===== */
 .overlay-card{
   position:relative;
   background:#0c0c0c;
@@ -170,13 +149,19 @@ footer{
   width:100%;
   height:100%;
   object-fit:cover;
-  opacity:.12;
+  opacity:.18;
 }
 .overlay-content{
   position:relative;
   z-index:2;
 }
 
+footer{
+  text-align:center;
+  font-size:12px;
+  color:#eee;
+  padding:20px;
+}
 </style>
 </head>
 
@@ -186,7 +171,7 @@ footer{
 <div class="topbar">
   <div class="search">Ctrl K</div>
   <div class="nav">
-    <a onclick="go('home')" id="nav-home">Home</a>
+    <a onclick="go('home')" id="nav-home" class="active">Home</a>
     <a onclick="go('market')" id="nav-market">Market</a>
     <a onclick="go('discover')" id="nav-discover">Discover</a>
     <a onclick="go('portfolio')" id="nav-portfolio">Portfolio</a>
@@ -196,8 +181,10 @@ footer{
 
 <div class="container">
 
-<!-- HOME -->
+<!-- ================= HOME ================= -->
 <div class="page active" id="home">
+
+  <!-- SUMMARY -->
   <div class="card">
     <div class="summary">
       <div class="metric"><span>Portfolio Value</span><strong>₹4,64,10,128.48</strong></div>
@@ -207,133 +194,92 @@ footer{
       <div class="metric"><span>This Month</span><strong class="positive">0.00%</strong></div>
     </div>
     <div class="actions">
-      <div class="btn green" onclick="alert('Deposit clicked')">Deposit</div>
-      <div class="btn yellow" onclick="alert('Withdraw clicked')">Withdraw</div>
-    </div>
-  </div>
-</div>
-<div class="grid">
-
-  <!-- LEFT -->
-  <div>
-
-    <!-- AI Insight -->
-    <div class="card overlay-card">
-      <img src="ai-bg.jpg">
-      <div class="overlay-content">
-        <h3>AI Insight</h3>
-        <p style="color:#ccc;font-size:14px">
-          Market momentum remains range-bound.  
-          A decisive breakout above key resistance may trigger short-term upside.
-        </p>
-        <span style="font-size:12px;color:var(--muted)">Generated 2 minutes ago</span>
-      </div>
-    </div>
-
-  </div>
-
-  <!-- RIGHT -->
-  <div>
-
-    <!-- Breaking News -->
-<div class="card">
-  <h3>Breaking News</h3>
-
-  <div id="news-list">
-    <div style="color:var(--muted)">Loading latest news...</div>
-  </div>
-
-</div>
-
-
-    </div>
-
-  </div>
-
-</div>
-
-<!-- MARKET -->
-<div class="page" id="market">
-  <div class="card">
-    <h3>Market Summary</h3>
-    <div class="market-grid">
-      <div class="market-item"><span>SENSEX</span><strong>83,817.69</strong><div class="positive">+0.09%</div></div>
-      <div class="market-item"><span>NIFTY 50</span><strong>25,776</strong><div class="positive">+0.19%</div></div>
-      <div class="market-item"><span>NIFTY BANK</span><strong>60,238.15</strong><div class="positive">+0.33%</div></div>
-    </div>
-  </div>
-</div>
-  <div class="card overlay-card">
-  <img src="sentiment-bg.jpg">
-  <div class="overlay-content">
-    <h3>Market Sentiment</h3>
-
-    <div class="summary" style="grid-template-columns:repeat(3,1fr)">
-      <div class="metric">
-        <span>Bullish</span>
-        <strong class="positive">62%</strong>
-      </div>
-      <div class="metric">
-        <span>Neutral</span>
-        <strong style="color:var(--yellow)">21%</strong>
-      </div>
-      <div class="metric">
-        <span>Bearish</span>
-        <strong class="negative">17%</strong>
-      </div>
-    </div>
-
-    <p style="margin-top:14px;font-size:13px;color:#ccc">
-      Overall market sentiment remains cautiously bullish.
-    </p>
-  </div>
-</div>
-
-
-<!-- DISCOVER -->
-<div class="page" id="discover">
-  <div class="card">
-    <h3>Trades</h3>
-    <div class="tabs">
-      <div class="tab active">All</div>
-      <div class="tab">Ins. Stocks</div>
-      <div class="tab">OTC</div>
-      <div class="tab">IPO</div>
-    </div>
-    <div style="color:var(--muted)">No data.</div>
-  </div>
-</div>
-
-<!-- PORTFOLIO -->
-<div class="page" id="portfolio">
-  <div class="card">
-    <h3>Assets</h3>
-    <div class="market-grid">
-      <div class="market-item"><span>Available Balance</span><strong>₹0.00</strong></div>
-      <div class="market-item"><span>Invested</span><strong>₹4,64,10,128.48</strong></div>
-      <div class="market-item"><span>Pending Settlement</span><strong class="negative">-₹83,34,495.52</strong></div>
-    </div>
-  </div>
-</div>
-
-<!-- ME -->
-<div class="page" id="me">
-  <div class="card">
-    <h3>Your Profile</h3>
-    <p>Username: ********3029</p>
-    <p>KYC Status: <span class="positive">Approved</span></p>
-    <div class="actions">
       <div class="btn green">Deposit</div>
       <div class="btn yellow">Withdraw</div>
     </div>
   </div>
+
+  <!-- GRID -->
+  <div class="grid">
+
+    <!-- LEFT -->
+    <div>
+      <div class="card overlay-card">
+        <img src="ai-bg.jpg">
+        <div class="overlay-content">
+          <h3>AI Insight</h3>
+          <p style="font-size:14px;color:#ccc">
+            Market momentum remains range-bound.  
+            Breakout above resistance may trigger upside.
+          </p>
+          <span style="font-size:12px;color:var(--muted)">Generated just now</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT -->
+    <div>
+
+      <!-- BREAKING NEWS -->
+      <div class="card">
+        <h3>Breaking News</h3>
+
+        <div id="breaking-main" class="overlay-card" style="height:220px">
+          <img id="breaking-img">
+          <div class="overlay-content" style="position:absolute;bottom:14px">
+            <span id="breaking-time"></span>
+            <h4 id="breaking-title"></h4>
+          </div>
+        </div>
+
+        <div id="breaking-dots" style="text-align:center;margin-top:10px"></div>
+      </div>
+
+      <!-- RECOMMENDATION -->
+      <div class="card">
+        <h3>Recommendation</h3>
+        <div id="news-recommend"></div>
+      </div>
+
+    </div>
+
+  </div>
 </div>
+
+<!-- ================= MARKET ================= -->
+<div class="page" id="market">
+
+  <div class="card">
+    <h3>Market Summary</h3>
+    <div class="market-grid">
+      <div class="market-item"><strong>SENSEX</strong><div class="positive">83,817.69</div></div>
+      <div class="market-item"><strong>NIFTY 50</strong><div class="positive">25,776</div></div>
+      <div class="market-item"><strong>NIFTY BANK</strong><div class="positive">60,238.15</div></div>
+    </div>
+  </div>
+
+  <div class="card overlay-card">
+    <img src="sentiment-bg.jpg">
+    <div class="overlay-content">
+      <h3>Market Sentiment</h3>
+      <div class="summary" style="grid-template-columns:repeat(3,1fr)">
+        <div class="metric"><span>Bullish</span><strong class="positive">62%</strong></div>
+        <div class="metric"><span>Neutral</span><strong style="color:var(--yellow)">21%</strong></div>
+        <div class="metric"><span>Bearish</span><strong class="negative">17%</strong></div>
+      </div>
+    </div>
+  </div>
 
 </div>
 
-<footer>
-© 2025 Avendus Capital. All Rights Reserved.
-</footer>
+<!-- ================= OTHER PAGES ================= -->
+<div class="page" id="discover"><div class="card"><h3>Trades</h3>No data.</div></div>
+<div class="page" id="portfolio"><div class="card"><h3>Assets</h3>No data.</div></div>
+<div class="page" id="me"><div class="card"><h3>Your Profile</h3>KYC Approved</div></div>
+
+</div>
+
+<footer>© 2025 Avendus Capital</footer>
 
 <script>
 function go(page){
@@ -341,60 +287,68 @@ function go(page){
   document.querySelectorAll('.nav a').forEach(n=>n.classList.remove('active'));
   document.getElementById(page).classList.add('active');
   document.getElementById('nav-'+page).classList.add('active');
+  loadNews();
 }
-  const NEWS_API_KEY = "d880798baaaf456f92adf6ec24be7aac";
-const NEWS_CONTAINER = document.getElementById("news-list");
+
+const NEWS_API_KEY = "d880798baaaf456f92adf6ec24be7aac";
+let breakingData = [];
 
 async function loadNews(){
+  if(!document.getElementById("home").classList.contains("active")) return;
+
   try{
     const res = await fetch(
-  `https://api.allorigins.win/raw?url=https://newsapi.org/v2/top-headlines?category=business&language=en&pageSize=3&apiKey=${NEWS_API_KEY}`
-);
-
+      `https://api.allorigins.win/raw?url=https://newsapi.org/v2/top-headlines?category=business&language=en&pageSize=6&apiKey=${NEWS_API_KEY}`
+    );
     const data = await res.json();
+    if(!data.articles) return;
 
-    NEWS_CONTAINER.innerHTML = "";
+    breakingData = data.articles;
+    showBreaking(0);
 
-    data.articles.forEach(article=>{
-      const card = document.createElement("div");
-      card.className = "news-card";
-
-      card.innerHTML = `
-        <img src="${article.urlToImage || 'news-1.jpg'}">
-        <div class="news-content">
-          <span>
-            ${new Date(article.publishedAt).toLocaleTimeString()} · ${article.source.name}
-          </span>
-          <h4>${article.title}</h4>
-          <p>${article.description || ''}</p>
-        </div>
-      `;
-
-      card.onclick = ()=> window.open(article.url, "_blank");
-
-      NEWS_CONTAINER.appendChild(card);
-
-      const gap = document.createElement("div");
-      gap.style.height = "12px";
-      NEWS_CONTAINER.appendChild(gap);
+    const dots = document.getElementById("breaking-dots");
+    dots.innerHTML="";
+    breakingData.slice(0,5).forEach((_,i)=>{
+      const d=document.createElement("span");
+      d.innerText="●";
+      d.style.margin="0 4px";
+      d.style.cursor="pointer";
+      d.style.color=i===0?"#5aa9ff":"#444";
+      d.onclick=()=>showBreaking(i);
+      dots.appendChild(d);
     });
 
-  }catch(err){
-    NEWS_CONTAINER.innerHTML =
-      `<div style="color:var(--muted)">Failed to load news</div>`;
+    const list=document.getElementById("news-recommend");
+    list.innerHTML="";
+    breakingData.slice(1).forEach(a=>{
+      const item=document.createElement("div");
+      item.className="news-card";
+      item.innerHTML=`
+        <img src="${a.urlToImage||'news-1.jpg'}">
+        <div class="news-content">
+          <span>${a.source.name}</span>
+          <h4>${a.title}</h4>
+        </div>`;
+      item.onclick=()=>window.open(a.url,"_blank");
+      list.appendChild(item);
+      list.appendChild(document.createElement("div")).style.height="10px";
+    });
+
+  }catch(e){
+    console.log(e);
   }
 }
 
-// 页面一打开就加载
+function showBreaking(i){
+  const a=breakingData[i];
+  document.getElementById("breaking-img").src=a.urlToImage||"news-1.jpg";
+  document.getElementById("breaking-title").innerText=a.title;
+  document.getElementById("breaking-time").innerText=
+    new Date(a.publishedAt).toLocaleTimeString()+" · "+a.source.name;
+}
+
 loadNews();
-
-// 每 5 分钟自动更新
-setInterval(loadNews, 5 * 60 * 1000);
-
 </script>
 
 </body>
 </html>
-
-
-
