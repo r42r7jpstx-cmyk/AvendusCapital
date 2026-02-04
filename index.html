@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Astra Capital</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- 基础样式 -->
+  <style>
+    :root {
+      --bg-orange: #ff8c5a;
+      --bg-dark: #0f0f0f;
+      --card-dark: #151515;
+      --border-dark: #262626;
+      --green: #00c853;
+      --red: #ff5252;
+      --yellow: #ffc107;
+      --text-muted: #9aa0a6;
+    }
+
+    * {
+      box-sizing: border-box;
+      font-family: Inter, system-ui, sans-serif;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg-orange);
+      color: #fff;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    /* ===== Top Bar ===== */
+    .topbar {
+      height: 64px;
+      background: #ff8c5a;
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+      gap: 20px;
+    }
+
+    .search {
+      background: #111;
+      padding: 10px 14px;
+      border-radius: 6px;
+      width: 200px;
+      color: #ccc;
+    }
+
+    .nav {
+      display: flex;
+      gap: 20px;
+      margin-left: auto;
+    }
+
+    .nav a {
+      padding: 8px 14px;
+      border-radius: 6px;
+      color: #fff;
+      opacity: 0.85;
+    }
+
+    .nav a.active {
+      background: #d6ff3f;
+      color: #000;
+      font-weight: 600;
+    }
+
+    /* ===== Main Layout ===== */
+    .container {
+      padding: 20px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 20px;
+    }
+
+    .card {
+      background: linear-gradient(180deg, #111, #0c0c0c);
+      border: 1px solid var(--border-dark);
+      border-radius: 14px;
+      padding: 20px;
+    }
+
+    .card h3 {
+      margin: 0 0 14px;
+      font-size: 16px;
+      color: #5aa9ff;
+    }
+
+    /* ===== Dashboard ===== */
+    .summary {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 16px;
+    }
+
+    .metric {
+      background: #0d0d0d;
+      border-radius: 10px;
+      padding: 14px;
+    }
+
+    .metric span {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .metric strong {
+      display: block;
+      font-size: 18px;
+      margin-top: 6px;
+    }
+
+    .actions {
+      display: flex;
+      gap: 12px;
+      margin-top: 16px;
+    }
+
+    .btn {
+      flex: 1;
+      padding: 12px;
+      border-radius: 8px;
+      text-align: center;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .btn.green { background: var(--green); color: #000; }
+    .btn.yellow { background: var(--yellow); color: #000; }
+
+    /* ===== Market Summary ===== */
+    .market-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .market-item {
+      background: #0e1a14;
+      border-radius: 12px;
+      padding: 14px;
+    }
+
+    .market-item strong {
+      font-size: 18px;
+    }
+
+    .positive { color: var(--green); }
+    .negative { color: var(--red); }
+
+    /* ===== News ===== */
+    .news-img {
+      width: 100%;
+      height: 180px;
+      border-radius: 12px;
+      background: #333 url("placeholder-news.jpg") center/cover;
+      margin-bottom: 10px;
+    }
+
+    /* ===== Footer ===== */
+    footer {
+      text-align: center;
+      color: #eee;
+      padding: 20px;
+      font-size: 12px;
+    }
+  </style>
+</head>
+
+<body>
+
+<!-- ===== Top Navigation ===== -->
+<div class="topbar">
+  <div class="search">Ctrl K</div>
+
+  <div class="nav">
+    <a class="active">Home</a>
+    <a>Market</a>
+    <a>Discover</a>
+    <a>Portfolio</a>
+    <a>Me</a>
+  </div>
+</div>
+
+<!-- ===== Main Content ===== -->
+<div class="container">
+
+  <!-- Dashboard Summary -->
+  <div class="card">
+    <div class="summary">
+      <div class="metric">
+        <span>Portfolio Value</span>
+        <strong>₹4,64,10,128.48</strong>
+      </div>
+      <div class="metric">
+        <span>Invested</span>
+        <strong>₹1,18,14,664.99</strong>
+      </div>
+      <div class="metric">
+        <span>Today</span>
+        <strong class="positive">0.00%</strong>
+      </div>
+      <div class="metric">
+        <span>This Week</span>
+        <strong class="positive">0.00%</strong>
+      </div>
+      <div class="metric">
+        <span>This Month</span>
+        <strong class="positive">0.00%</strong>
+      </div>
+    </div>
+
+    <div class="actions">
+      <div class="btn green">Deposit</div>
+      <div class="btn yellow">Withdraw</div>
+    </div>
+  </div>
+
+  <br />
+
+  <div class="grid">
+
+    <!-- Left Column -->
+    <div>
+
+      <!-- Market Summary -->
+      <div class="card">
+        <h3>Market Summary</h3>
+        <div class="market-grid">
+          <div class="market-item">
+            <span>SENSEX</span>
+            <strong>83,817.69</strong>
+            <div class="positive">+0.09%</div>
+          </div>
+          <div class="market-item">
+            <span>NIFTY 50</span>
+            <strong>25,776</strong>
+            <div class="positive">+0.19%</div>
+          </div>
+          <div class="market-item">
+            <span>NIFTY BANK</span>
+            <strong>60,238.15</strong>
+            <div class="positive">+0.33%</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Right Column -->
+    <div>
+
+      <!-- News -->
+      <div class="card">
+        <h3>Breaking News</h3>
+        <div class="news-img"></div>
+        <strong>Pinterest reportedly fires employees who built a tool to track layoffs</strong>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  © 2025 Astra Capital. All Rights Reserved.
+</footer>
+
+</body>
+</html>
