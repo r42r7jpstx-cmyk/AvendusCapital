@@ -282,61 +282,83 @@ footer{
 <footer>© 2025 Avendus Capital</footer>
 
 <script>
+/* ================= MOCK NEWS ================= */
+const MOCK_NEWS = [
+  {
+    title: "Global markets steady as investors await policy signals",
+    source: { name: "Bloomberg" },
+    publishedAt: new Date().toISOString(),
+    url: "https://www.bloomberg.com",
+    urlToImage: "news-1.jpg"
+  },
+  {
+    title: "Banking stocks extend gains amid rate optimism",
+    source: { name: "Reuters" },
+    publishedAt: new Date().toISOString(),
+    url: "https://www.reuters.com",
+    urlToImage: "news-1.jpg"
+  },
+  {
+    title: "Midcap stocks attract selective buying interest",
+    source: { name: "CNBC" },
+    publishedAt: new Date().toISOString(),
+    url: "https://www.cnbc.com",
+    urlToImage: "news-1.jpg"
+  }
+];
+
+let breakingData = [];
+
+/* ================= NAV ================= */
 function go(page){
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
   document.querySelectorAll('.nav a').forEach(n=>n.classList.remove('active'));
   document.getElementById(page).classList.add('active');
   document.getElementById('nav-'+page).classList.add('active');
-  loadNews();
+
+  if(page === "home") loadNews();
 }
 
-const NEWS_API_KEY = "d880798baaaf456f92adf6ec24be7aac";
-let breakingData = [];
+/* ================= NEWS ================= */
+function loadNews(){
 
-async function loadNews(){
-  if(!document.getElementById("home").classList.contains("active")) return;
+  breakingData = MOCK_NEWS;
 
-  try{
-    const res = await fetch(
-      `https://api.allorigins.win/raw?url=https://newsapi.org/v2/top-headlines?category=business&language=en&pageSize=6&apiKey=${NEWS_API_KEY}`
-    );
-    const data = await res.json();
-    if(!data.articles) return;
+  // --- Breaking News ---
+  showBreaking(0);
 
-    breakingData = data.articles;
-    showBreaking(0);
+  // --- Dots ---
+  const dots = document.getElementById("breaking-dots");
+  dots.innerHTML = "";
+  breakingData.forEach((_, i) => {
+    const d = document.createElement("span");
+    d.innerText = "●";
+    d.style.margin = "0 4px";
+    d.style.cursor = "pointer";
+    d.style.color = i === 0 ? "#5aa9ff" : "#444";
+    d.onclick = () => showBreaking(i);
+    dots.appendChild(d);
+  });
 
-    const dots = document.getElementById("breaking-dots");
-    dots.innerHTML="";
-    breakingData.slice(0,5).forEach((_,i)=>{
-      const d=document.createElement("span");
-      d.innerText="●";
-      d.style.margin="0 4px";
-      d.style.cursor="pointer";
-      d.style.color=i===0?"#5aa9ff":"#444";
-      d.onclick=()=>showBreaking(i);
-      dots.appendChild(d);
-    });
+  // --- Recommendation ---
+  const list = document.getElementById("news-recommend");
+  list.innerHTML = "";
 
-    const list=document.getElementById("news-recommend");
-    list.innerHTML="";
-    breakingData.slice(1).forEach(a=>{
-      const item=document.createElement("div");
-      item.className="news-card";
-      item.innerHTML=`
-        <img src="${a.urlToImage||'news-1.jpg'}">
-        <div class="news-content">
-          <span>${a.source.name}</span>
-          <h4>${a.title}</h4>
-        </div>`;
-      item.onclick=()=>window.open(a.url,"_blank");
-      list.appendChild(item);
-      list.appendChild(document.createElement("div")).style.height="10px";
-    });
-
-  }catch(e){
-    console.log(e);
-  }
+  breakingData.slice(1).forEach(a => {
+    const item = document.createElement("div");
+    item.className = "news-card";
+    item.style.cursor = "pointer";
+    item.innerHTML = `
+      <img src="${a.urlToImage}">
+      <div class="news-content">
+        <span>${a.source.name}</span>
+        <h4>${a.title}</h4>
+      </div>
+    `;
+    item.onclick = () => window.open(a.url, "_blank");
+    list.appendChild(item);
+    list.appendChild(document.createElement("div")).style.height = "10px";
+  });
 }
 
 function showBreaking(i){
@@ -345,23 +367,23 @@ function showBreaking(i){
   const img = document.getElementById("breaking-img");
   const title = document.getElementById("breaking-title");
   const time = document.getElementById("breaking-time");
-  const container = document.getElementById("breaking-main");
+  const box = document.getElementById("breaking-main");
 
-  img.src = a.urlToImage || "news-1.jpg";
+  img.src = a.urlToImage;
   title.innerText = a.title;
   time.innerText =
     new Date(a.publishedAt).toLocaleTimeString() + " · " + a.source.name;
 
-  // ✅ 关键：整块 Breaking News 可点击
-  container.style.cursor = "pointer";
-  container.onclick = () => {
-    if(a.url) window.open(a.url, "_blank");
-  };
+  box.style.cursor = "pointer";
+  box.onclick = () => window.open(a.url, "_blank");
 }
 
+/* ================= INIT ================= */
 loadNews();
 </script>
 
+
 </body>
 </html>
+
 
