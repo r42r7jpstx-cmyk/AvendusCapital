@@ -128,6 +128,55 @@ footer{
   color:#eee;
   padding:20px;
 }
+  /* ===== NEWS ===== */
+.news-card{
+  display:flex;
+  gap:14px;
+  background:#0f0f0f;
+  border-radius:12px;
+  overflow:hidden;
+}
+.news-card img{
+  width:140px;
+  height:100%;
+  object-fit:cover;
+}
+.news-content{
+  padding:12px;
+}
+.news-content span{
+  font-size:12px;
+  color:var(--muted);
+}
+.news-content h4{
+  margin:6px 0;
+  font-size:14px;
+}
+.news-content p{
+  font-size:13px;
+  color:#ccc;
+}
+
+/* ===== AI / SENTIMENT ===== */
+.overlay-card{
+  position:relative;
+  background:#0c0c0c;
+  border-radius:14px;
+  overflow:hidden;
+}
+.overlay-card img{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  opacity:.12;
+}
+.overlay-content{
+  position:relative;
+  z-index:2;
+}
+
 </style>
 </head>
 
@@ -163,6 +212,67 @@ footer{
     </div>
   </div>
 </div>
+<div class="grid">
+
+  <!-- LEFT -->
+  <div>
+
+    <!-- AI Insight -->
+    <div class="card overlay-card">
+      <img src="ai-bg.jpg">
+      <div class="overlay-content">
+        <h3>AI Insight</h3>
+        <p style="color:#ccc;font-size:14px">
+          Market momentum remains range-bound.  
+          A decisive breakout above key resistance may trigger short-term upside.
+        </p>
+        <span style="font-size:12px;color:var(--muted)">Generated 2 minutes ago</span>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- RIGHT -->
+  <div>
+
+    <!-- Breaking News -->
+    <div class="card">
+      <h3>Breaking News</h3>
+
+      <div class="news-card">
+        <img src="news-1.jpg">
+        <div class="news-content">
+          <span>2h ago · Global Markets</span>
+          <h4>Global equities steady as investors await policy cues</h4>
+          <p>Asian markets trade mixed amid cautious global sentiment.</p>
+        </div>
+      </div>
+
+      <div style="height:12px"></div>
+
+      <div class="news-card">
+        <img src="news-2.jpg">
+        <div class="news-content">
+          <span>Business</span>
+          <h4>Banking stocks extend gains for third session</h4>
+        </div>
+      </div>
+
+      <div style="height:12px"></div>
+
+      <div class="news-card">
+        <img src="news-3.jpg">
+        <div class="news-content">
+          <span>Markets</span>
+          <h4>Midcap stocks attract selective buying interest</h4>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
 
 <!-- MARKET -->
 <div class="page" id="market">
@@ -175,6 +285,32 @@ footer{
     </div>
   </div>
 </div>
+  <div class="card overlay-card">
+  <img src="sentiment-bg.jpg">
+  <div class="overlay-content">
+    <h3>Market Sentiment</h3>
+
+    <div class="summary" style="grid-template-columns:repeat(3,1fr)">
+      <div class="metric">
+        <span>Bullish</span>
+        <strong class="positive">62%</strong>
+      </div>
+      <div class="metric">
+        <span>Neutral</span>
+        <strong style="color:var(--yellow)">21%</strong>
+      </div>
+      <div class="metric">
+        <span>Bearish</span>
+        <strong class="negative">17%</strong>
+      </div>
+    </div>
+
+    <p style="margin-top:14px;font-size:13px;color:#ccc">
+      Overall market sentiment remains cautiously bullish.
+    </p>
+  </div>
+</div>
+
 
 <!-- DISCOVER -->
 <div class="page" id="discover">
@@ -232,3 +368,4 @@ function go(page){
 
 </body>
 </html>
+
